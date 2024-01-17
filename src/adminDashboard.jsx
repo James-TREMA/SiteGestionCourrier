@@ -30,7 +30,7 @@ const AdminDashboard = () => {
   }, []);
 
   const handleDelete = (userId) => {
-    fetch(`http://51.83.69.229:3000/api/users/${userId}`, {
+    fetch(`http://51.83.69.229:3000/api/users/delete/${userId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -38,11 +38,15 @@ const AdminDashboard = () => {
     })
     .then(response => {
       if (response.ok) {
+        // Mettre à jour l'état pour refléter la suppression
         setClients(clients.filter(client => client._id !== userId));
+      } else {
+        throw new Error(`Erreur réseau: ${response.status} ${response.statusText}`);
       }
     })
     .catch(error => console.error('Erreur lors de la suppression du client:', error));
   };
+  
   
 
   const handleUpdate = (userId, updatedData) => {
@@ -51,7 +55,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div>
+    <div className="admin-dashboard">
       <h1>Tableau de Bord de l'Administrateur</h1>
       <table>
         <thead>
