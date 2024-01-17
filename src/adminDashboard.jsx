@@ -37,8 +37,8 @@ const AdminDashboard = () => {
       }
     })
     .then(response => {
+      console.log(response)
       if (response.ok) {
-        // Mettre à jour l'état pour refléter la suppression
         setClients(clients.filter(client => client._id !== userId));
       } else {
         throw new Error(`Erreur réseau: ${response.status} ${response.statusText}`);
@@ -46,6 +46,7 @@ const AdminDashboard = () => {
     })
     .catch(error => console.error('Erreur lors de la suppression du client:', error));
   };
+  
   
   
 
