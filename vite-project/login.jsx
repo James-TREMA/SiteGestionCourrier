@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const [firmName, setFirmName] = useState('');
@@ -83,6 +84,9 @@ const LoginPage = () => {
         </label>
         <br />
         <button type="submit">Connexion</button>
+        <p>
+          Pas encore inscrit ? <Link to="/inscription">Inscrivez-vous</Link>
+        </p>
       </form>
     </div>
   );
