@@ -2,23 +2,35 @@ import React, { useState, useEffect } from 'react';
 
 const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch('http://51.83.69.229:3000/api/users')
-      .then(response => response.json())
-      .then(data => setClients(data))
-      .catch(error => console.error('Erreur lors de la récupération des clients:', error));
+    fetch('http://51.83.69.229:3000/api/users', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => setClients(data))
+    .catch(error => console.error('Erreur lors de la récupération des clients:', error));
   }, []);
+  
 
   const handleDelete = (userId) => {
-    fetch(`http://51.83.69.229:3000/api/users/${userId}`, { method: 'DELETE' })
-      .then(response => {
-        if (response.ok) {
-          setClients(clients.filter(client => client._id !== userId));
-        }
-      })
-      .catch(error => console.error('Erreur lors de la suppression du client:', error));
+    fetch(`http://51.83.69.229:3000/api/users/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        setClients(clients.filter(client => client._id !== userId));
+      }
+    })
+    .catch(error => console.error('Erreur lors de la suppression du client:', error));
   };
+  
 
   const handleUpdate = (userId, updatedData) => {
     // Logique pour la mise à jour d'un utilisateur
