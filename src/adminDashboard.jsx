@@ -12,9 +12,13 @@ const AdminDashboard = () => {
         'Authorization': `Bearer ${token}`
       }
     })
-    .then(response => response.json())
+    .then(response => {
+      console.log(response); // Ajoutez cette ligne pour voir la réponse brute
+      return response.json();
+    })
     .then(data => setClients(data))
     .catch(error => console.error('Erreur lors de la récupération des clients:', error));
+    
   }, []);
   
   
