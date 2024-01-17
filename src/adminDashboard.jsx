@@ -10,14 +10,19 @@ const AdminDashboard = () => {
     fetch('http://51.83.69.229:3000/gestionEntreprise', {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        'Authorization': `Bearer ${token}`
       }
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Réponse réseau non OK');
+      }
+      return response.json();
+    })
     .then(data => setClients(data))
     .catch(error => console.error('Erreur lors de la récupération des clients:', error));
   }, []);
+  
   
   
 
