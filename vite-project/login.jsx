@@ -5,10 +5,11 @@ const LoginPage = () => {
   const [fourDigitCode, setFourDigitCode] = useState('');
   const [firms, setFirms] = useState([]);
 
-
- 
   useEffect(() => {
-    fetch('http://51.83.69.229:3000/api/users/gestionEntrepriseFirmName')
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    fetch('http://51.83.69.229:3000/api/users/gestionEntrepriseFirmName', { signal })
       .then(response => response.json())
       .then(data => {
         if (data && Array.isArray(data.firmNames)) {
@@ -17,13 +18,22 @@ const LoginPage = () => {
           console.error('La réponse n\'est pas un tableau:', data);
         }
       })
-      .catch(error => console.error('Erreur lors du chargement des entreprises:', error));
+      .catch(error => {
+        if (error.name !== 'AbortError') {
+          console.error('Erreur lors du chargement des entreprises:', error);
+        }
+      });
+
+    return () => controller.abort();
   }, []);
-  
-  
-  // http://51.83.69.229:3000/api/users/gestionEntrepriseFirmName
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!firmName || !fourDigitCode) {
+      console.error('Veuillez remplir tous les champs');
+      return;
+    }
+
     try {
       const response = await fetch('http://51.83.69.229:3000/api/users/login', {
         method: 'POST',
@@ -33,15 +43,13 @@ const LoginPage = () => {
         body: JSON.stringify({ firm_name: firmName, four_digit_code: fourDigitCode }),
       });
       const data = await response.json();
-      console.log('Réponse de l\'API:', data);
+
       if (response.ok) {
-        // Stocker le token JWT et rediriger l'utilisateur
-        localStorage.setItem('token', data.token, );
-        localStorage.setItem('firmName', firmName); // Supposant que firmName est déjà disponible
-        localStorage.setItem('isAdmin', data.is_admin); 
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('firmName', firmName);
+        localStorage.setItem('isAdmin', data.is_admin);
         // Rediriger vers le tableau de bord ou la page d'accueil
       } else {
-        // Gérer les erreurs (utilisateur non trouvé, mot de passe incorrect, etc.)
         console.error(data.message);
       }
     } catch (error) {
@@ -49,7 +57,6 @@ const LoginPage = () => {
     }
   };
 
-  
   return (
     <div>
       <h1>Connexion</h1>
