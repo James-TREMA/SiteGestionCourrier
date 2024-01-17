@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+const navigate = useNavigate();
 
 const LoginPage = () => {
   const [firmName, setFirmName] = useState('');
@@ -49,7 +51,14 @@ const LoginPage = () => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('firmName', firmName);
         localStorage.setItem('isAdmin', data.is_admin);
-        // Rediriger vers le tableau de bord ou la page d'accueil
+        
+      // Redirection en fonction du rôle
+      if (data.is_admin) {
+        navigate('/adminDashboard');
+      } else {
+        navigate('/userDashboard');
+      }
+
       } else {
         console.error(data.message);
       }
