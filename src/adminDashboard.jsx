@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './adminDashboard.css';
 
 const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
