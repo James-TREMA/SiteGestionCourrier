@@ -5,7 +5,9 @@ const AdminDashboard = () => {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch('http://51.83.69.229:3000/api/users', {
+    const token = localStorage.getItem('token');
+  
+    fetch('http://51.83.69.229:3000/gestionEntreprise', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -14,6 +16,7 @@ const AdminDashboard = () => {
     .then(data => setClients(data))
     .catch(error => console.error('Erreur lors de la récupération des clients:', error));
   }, []);
+  
   
 
   const handleDelete = (userId) => {
