@@ -21,7 +21,10 @@ const AdminDashboard = () => {
       }
       return response.json();
     })
-    .then(data => setClients(data))
+    .then(data => {
+      console.log(data); // Ajoutez cette ligne pour afficher les données
+      setClients(data);
+    })
     .catch(error => console.error('Erreur lors de la récupération des clients:', error));
   }, []);
 
@@ -65,11 +68,11 @@ const AdminDashboard = () => {
           {clients.map(client => (
             <tr key={client._id}>
               <td>{client.firm_name}</td>
-              <td>{client.name}</td>
-              <td>{client.phone}</td>
+              <td>{client.first_name} {client.last_name}</td>
+              <td>{client.phone_number}</td>
               <td>{client.email}</td>
               <td>{client.mail_status}</td>
-              <td>{client.last_visit}</td>
+              <td>{client.last_picked_up}</td>
               <td>
                 <button onClick={() => handleDelete(client._id)}>Supprimer</button>
                 <button onClick={() => handleUpdate(client._id, {/* Données mises à jour */})}>Modifier</button>
@@ -79,7 +82,7 @@ const AdminDashboard = () => {
         </tbody>
       </table>
     </div>
-  );
+  );  
 };
 
 export default AdminDashboard;
