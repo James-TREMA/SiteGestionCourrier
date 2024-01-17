@@ -4,24 +4,26 @@ const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
   const token = localStorage.getItem('token');
 
-useEffect(() => {
-  const token = localStorage.getItem('token');
-
-  fetch('http://51.83.69.229:3000/gestionEntreprise', {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Réponse réseau non OK');
-    }
-    return response.json();
-  })
-  .then(data => setClients(data))
-  .catch(error => console.error('Erreur lors de la récupération des clients:', error));
-}, []);
+  useEffect(() => {
+    fetch('http://51.83.69.229:3000/gestionEntreprise', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Erreur réseau: ${response.status} ${response.statusText}`);
+      }
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new TypeError("La réponse n'est pas du JSON");
+      }
+      return response.json();
+    })
+    .then(data => setClients(data))
+    .catch(error => console.error('Erreur lors de la récupération des clients:', error));
+  }, []);
 
   const handleDelete = (userId) => {
     fetch(`http://51.83.69.229:3000/api/users/${userId}`, {
