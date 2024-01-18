@@ -5,6 +5,14 @@ const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
   const token = localStorage.getItem('token');
 
+  const [editableFirmName, setEditableFirmName] = useState('');
+  const [editableFirstName, setEditableFirstName] = useState('');
+  const [editableLastName, setEditableLastName] = useState('');
+  const [editablePhoneNumber, setEditablePhoneNumber] = useState('');
+  const [editableEmail, setEditableEmail] = useState('');
+  const [editableMailStatus, setEditableMailStatus] = useState('');
+  const [editableLastPickedUp, setEditableLastPickedUp] = useState('');
+
   useEffect(() => {
     fetch('http://51.83.69.229:3000/api/users/gestionEntreprise', {
       method: 'GET',
@@ -29,6 +37,33 @@ const AdminDashboard = () => {
     .catch(error => console.error('Erreur lors de la récupération des clients:', error));
   }, []);
 
+    // Gestionnaire pour les changements dans les champs de saisie
+    const handleInputChange = (e, clientId, field) => {
+      if (clientId === client._id) {
+        switch (field) {
+          case 'firm_name':
+            setEditableFirmName(e.target.value);
+            break;
+          case 'first_name':
+            setEditableFirstName(e.target.value);
+            break;
+          case 'phone_number':
+            setEditableFirstName(e.target.value);
+            break;
+          case 'email':
+            setEditableFirstName(e.target.value);
+            break;
+          case 'mail_status':
+            setEditableFirstName(e.target.value);
+            break;
+        case 'last_picked_up':
+            setEditableFirstName(e.target.value);
+            break;
+                  
+        }
+      }
+    };
+
   const handleDelete = (userId) => {
     fetch(`http://51.83.69.229:3000/api/users/delete/${userId}`, {
       method: 'DELETE',
@@ -50,8 +85,6 @@ const AdminDashboard = () => {
     .catch(error => console.error('Erreur lors de la suppression du client:', error));
   };
   
-  
-
   const handleUpdate = (userId, updatedData) => {
     fetch(`http://51.83.69.229:3000/api/users/update/${userId}`, {
       method: 'PUT', // ou 'PATCH' selon la configuration de votre API
