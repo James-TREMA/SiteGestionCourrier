@@ -53,9 +53,28 @@ const AdminDashboard = () => {
   
 
   const handleUpdate = (userId, updatedData) => {
-    // Logique pour la mise à jour d'un utilisateur
-    // Cette fonction doit être complétée en fonction de votre logique de mise à jour
+    fetch(`http://51.83.69.229:3000/api/users/update/${userId}`, {
+      method: 'PUT', // ou 'PATCH' selon la configuration de votre API
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(updatedData)
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`Erreur réseau: ${response.status} ${response.statusText}`);
+      }
+    })
+    .then(updatedUser => {
+      // Mettre à jour l'état des clients avec les informations de l'utilisateur mis à jour
+      setClients(clients.map(client => client._id === userId ? updatedUser : client));
+    })
+    .catch(error => console.error('Erreur lors de la mise à jour du client:', error));
   };
+  
 
   return (
     <div className="admin-dashboard">
