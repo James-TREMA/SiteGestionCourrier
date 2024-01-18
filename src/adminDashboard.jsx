@@ -37,16 +37,18 @@ const AdminDashboard = () => {
       }
     })
     .then(response => {
-      console.log(response)
+      console.log(response);
       if (response.ok) {
         setClients(clients.filter(client => client._id !== userId));
       } else {
-        throw new Error(`Erreur réseau: ${response.status} ${response.statusText}`);
+        response.text().then(text => {
+          console.error(`Erreur réseau: ${response.status} ${response.statusText}`, text);
+          throw new Error(`Erreur réseau: ${response.status} ${response.statusText}`);
+        });
       }
     })
     .catch(error => console.error('Erreur lors de la suppression du client:', error));
   };
-  
   
   
 
