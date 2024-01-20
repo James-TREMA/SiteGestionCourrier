@@ -6,8 +6,11 @@ const AdminDashboard = () => {
   const token = localStorage.getItem('token');
 
   const [showDropdown, setShowDropdown] = useState(false);
-  const toggleDropdown = () => setShowDropdown(!showDropdown);
-
+  const toggleDropdown = () => {
+    console.log("Toggling dropdown");
+    setShowDropdown(!showDropdown);
+  };
+  
   useEffect(() => {
     fetch('http://51.83.69.229:3000/api/users/gestionEntreprise', {
       method: 'GET',

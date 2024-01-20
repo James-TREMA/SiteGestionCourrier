@@ -33,9 +33,9 @@
   display: block;
 }
 
-.dropdown-button:hover .dropdown-content {
+/* .dropdown-button:hover .dropdown-content {
   display: block;
-}
+} */
 
 /* Style général du tableau de bord */
 .admin-dashboard {
