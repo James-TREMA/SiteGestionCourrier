@@ -5,7 +5,8 @@
   display: flex;
   justify-content: flex-end;
   padding: 10px;
-  background-color: #4CAF50; /* Ajustez la couleur selon votre thème */
+  background-color: #4CAF50; /* Ajustez selon votre thème */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile pour l'en-tête */
 }
 
 /* Style du bouton déroulant */
@@ -14,18 +15,36 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #f1f1f1; /* Ajustez la couleur */
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Ajout d'une transition */
 }
+
+.dropdown-button:hover {
+  background-color: #e2e2e2; /* Légère modification de couleur au survol */
+  transform: scale(1.05); /* Effet de zoom léger au survol */
+}
+
 
 /* Style du contenu déroulant */
 .dropdown-content {
-  display: none; /* Initialement caché, sera contrôlé par React */
+  display: none;
   position: absolute;
+  right: 10px;
   background-color: #f9f9f9;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1000; /* Assurez-vous qu'il est suffisamment élevé pour être au-dessus des autres éléments */
-  border: 1px solid red; /* Pour visualiser le positionnement, peut être retiré plus tard */
+  z-index: 1000;
+  opacity: 0; /* Initialement transparent */
+  transform: translateY(-20px); /* Légèrement déplacé vers le haut */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Transition pour l'opacité et le déplacement */
 }
+
+/* Ajoutez une classe supplémentaire dans votre JSX pour gérer l'affichage */
+.dropdown-content.show {
+  display: block;
+  opacity: 1; /* Pleinement visible */
+  transform: translateY(0); /* Retour à la position initiale */
+}
+
 
 /* Style des boutons à l'intérieur du contenu déroulant */
 .dropdown-content button {

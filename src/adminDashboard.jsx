@@ -90,7 +90,7 @@ const AdminDashboard = () => {
       <div className="admin-header">
         <button className="dropdown-button" onClick={toggleDropdown}>Menu</button>
         {showDropdown && (
-      <div className="dropdown-content" style={{ display: showDropdown ? 'block' : 'none' }}>
+      <div className={`dropdown-content ${showDropdown ? 'show' : ''}`}>
       <button>Mon compte</button>
       <button>Déconnexion</button>
         {/* Contenu du menu */}
