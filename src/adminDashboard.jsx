@@ -9,6 +9,7 @@ const AdminDashboard = () => {
   const toggleDropdown = () => {
     console.log("Toggling dropdown");
     setShowDropdown(!showDropdown);
+    console.log(showDropdown)
   };
 
   useEffect(() => {
