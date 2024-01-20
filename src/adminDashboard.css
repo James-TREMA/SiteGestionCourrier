@@ -1,54 +1,91 @@
 /* adminDashboard.css */
 
+/* Style de l'en-tête */
+.admin-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  background-color: #4CAF50; /* Ajustez la couleur selon votre thème */
+}
+
+.dropdown-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #f1f1f1; /* Ajustez la couleur */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 10px;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-button:hover .dropdown-content {
+  display: block;
+}
+
 /* Style général du tableau de bord */
 .admin-dashboard {
-    padding: 20px;
-    max-width: 1000px;
-    margin: auto;
-  }
-  
-  /* Style du titre */
-  .admin-dashboard h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Style du tableau */
-  .admin-dashboard table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  /* Style des en-têtes de tableau */
-  .admin-dashboard th {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-  }
-  
-  /* Style des cellules de tableau */
-  .admin-dashboard td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  /* Style des lignes impaires du tableau */
-  .admin-dashboard tr:nth-child(odd) {
-    background-color: #f2f2f2;
-  }
-  
-  /* Style des boutons */
-  .admin-dashboard button {
-    padding: 5px 10px;
-    margin-right: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Couleur de fond au survol des boutons */
-  .admin-dashboard button:hover {
-    background-color: #45a049;
-  }
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Style du titre */
+.admin-dashboard h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style du tableau */
+.admin-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style des en-têtes de tableau */
+.admin-dashboard th {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+}
+
+/* Style des cellules de tableau */
+.admin-dashboard td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Style des lignes impaires du tableau */
+.admin-dashboard tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+/* Style des boutons */
+.admin-dashboard button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Couleur de fond au survol des boutons */
+.admin-dashboard button:hover {
+  background-color: #45a049;
+}

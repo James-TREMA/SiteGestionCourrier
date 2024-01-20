@@ -76,6 +76,14 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard">
+      <div className="admin-header">
+        <button className="dropdown-button">Menu</button>
+        <div className="dropdown-content">
+          <button>Mon compte</button>
+          <button>Déconnexion</button>
+          {/* Autres boutons */}
+        </div>
+      </div>
       <h1>Tableau de Bord de l'Administrateur</h1>
       <table>
         <thead>
