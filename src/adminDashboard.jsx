@@ -90,11 +90,11 @@ const AdminDashboard = () => {
       <div className="admin-header">
         <button className="dropdown-button" onClick={toggleDropdown}>Menu</button>
         {showDropdown && (
-          <div className="dropdown-content">
-            <button>Mon compte</button>
-            <button>Déconnexion</button>
-            {/* Autres boutons */}
-          </div>
+      <div className="dropdown-content" style={{ display: showDropdown ? 'block' : 'none' }}>
+      <button>Mon compte</button>
+      <button>Déconnexion</button>
+        {/* Contenu du menu */}
+      </div>
         )}
       </div>
       <h1>Tableau de Bord de l'Administrateur</h1>
