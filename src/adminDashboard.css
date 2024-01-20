@@ -10,7 +10,7 @@
 }
 
 /* Style du bouton déroulant */
-.dropdown-button {
+.logout-button {
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
@@ -19,7 +19,7 @@
   transition: background-color 0.3s ease, transform 0.3s ease; /* Ajout d'une transition */
 }
 
-.dropdown-button:hover {
+.logout-button:hover {
   background-color: #e2e2e2; /* Légère modification de couleur au survol */
   transform: scale(1.05); /* Effet de zoom léger au survol */
 }

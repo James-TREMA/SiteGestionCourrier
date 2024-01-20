@@ -5,31 +5,6 @@ const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
   const token = localStorage.getItem('token');
 
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef(null); // Référence pour le menu déroulant
-
-  const toggleDropdown = (event) => {
-    event.stopPropagation(); // Empêche le clic de se propager
-    setShowDropdown(!showDropdown);
-  };
-
-  useEffect(() => {
-    // Fonction pour gérer les clics en dehors du menu déroulant
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    };
-
-    // Ajout de l'écouteur d'événements
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      // Nettoyage de l'écouteur d'événements
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
   useEffect(() => {
     fetch('http://51.83.69.229:3000/api/users/gestionEntreprise', {
       method: 'GET',
@@ -93,17 +68,15 @@ const AdminDashboard = () => {
     .catch(error => console.error('Erreur lors de la mise à jour du client:', error));
   };
 
+  const handleLogout = () => {
+    // ... Votre logique de déconnexion ...
+    console.log("L'utilisateur c'est déconnecté")
+  };
+
   return (
     <div className="admin-dashboard">
       <div className="admin-header">
-        <button className="dropdown-button" onClick={toggleDropdown}>Menu</button>
-        {showDropdown && (
-          <div className="dropdown-content" ref={dropdownRef}>
-            <button>Mon compte</button>
-            <button>Déconnexion</button>
-            {/* Autres boutons */}
-          </div>
-        )}
+        <button className="logout-button" onClick={handleLogout}>Déconnexion</button>
       </div>
       <h1>Tableau de Bord de l'Administrateur</h1>
       <table>
