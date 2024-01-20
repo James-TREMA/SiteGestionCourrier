@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './adminDashboard.css';
 
 const AdminDashboard = () => {
@@ -6,15 +6,29 @@ const AdminDashboard = () => {
   const token = localStorage.getItem('token');
 
   const [showDropdown, setShowDropdown] = useState(false);
-  const toggleDropdown = () => {
-    console.log("Toggling dropdown");
+  const dropdownRef = useRef(null); // Référence pour le menu déroulant
+
+  const toggleDropdown = (event) => {
+    event.stopPropagation(); // Empêche le clic de se propager
     setShowDropdown(!showDropdown);
-    console.log(showDropdown)
   };
 
   useEffect(() => {
-    console.log("Dropdown state is now:", showDropdown);
-  }, [showDropdown]);  
+    // Fonction pour gérer les clics en dehors du menu déroulant
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    // Ajout de l'écouteur d'événements
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      // Nettoyage de l'écouteur d'événements
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     fetch('http://51.83.69.229:3000/api/users/gestionEntreprise', {
@@ -27,14 +41,9 @@ const AdminDashboard = () => {
       if (!response.ok) {
         throw new Error(`Erreur réseau: ${response.status} ${response.statusText}`);
       }
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new TypeError("La réponse n'est pas du JSON");
-      }
       return response.json();
     })
     .then(data => {
-      console.log(data); // Ajoutez cette ligne pour afficher les données
       setClients(data);
     })
     .catch(error => console.error('Erreur lors de la récupération des clients:', error));
@@ -83,18 +92,17 @@ const AdminDashboard = () => {
     })
     .catch(error => console.error('Erreur lors de la mise à jour du client:', error));
   };
-  
 
   return (
     <div className="admin-dashboard">
       <div className="admin-header">
         <button className="dropdown-button" onClick={toggleDropdown}>Menu</button>
         {showDropdown && (
-      <div className={`dropdown-content ${showDropdown ? 'show' : ''}`}>
-      <button>Mon compte</button>
-      <button>Déconnexion</button>
-        {/* Contenu du menu */}
-      </div>
+          <div className="dropdown-content" ref={dropdownRef}>
+            <button>Mon compte</button>
+            <button>Déconnexion</button>
+            {/* Autres boutons */}
+          </div>
         )}
       </div>
       <h1>Tableau de Bord de l'Administrateur</h1>
@@ -128,7 +136,7 @@ const AdminDashboard = () => {
         </tbody>
       </table>
     </div>
-  );  
+  );
 };
 
 export default AdminDashboard;
