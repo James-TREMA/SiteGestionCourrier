@@ -13,6 +13,10 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
+    console.log("Dropdown state is now:", showDropdown);
+  }, [showDropdown]);  
+
+  useEffect(() => {
     fetch('http://51.83.69.229:3000/api/users/gestionEntreprise', {
       method: 'GET',
       headers: {
