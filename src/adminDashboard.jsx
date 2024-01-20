@@ -5,6 +5,9 @@ const AdminDashboard = () => {
   const [clients, setClients] = useState([]);
   const token = localStorage.getItem('token');
 
+  const [showDropdown, setShowDropdown] = useState(false);
+  const toggleDropdown = () => setShowDropdown(!showDropdown);
+
   useEffect(() => {
     fetch('http://51.83.69.229:3000/api/users/gestionEntreprise', {
       method: 'GET',
@@ -77,12 +80,14 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       <div className="admin-header">
-        <button className="dropdown-button">Menu</button>
-        <div className="dropdown-content">
-          <button>Mon compte</button>
-          <button>Déconnexion</button>
-          {/* Autres boutons */}
-        </div>
+        <button className="dropdown-button" onClick={toggleDropdown}>Menu</button>
+        {showDropdown && (
+          <div className="dropdown-content">
+            <button>Mon compte</button>
+            <button>Déconnexion</button>
+            {/* Autres boutons */}
+          </div>
+        )}
       </div>
       <h1>Tableau de Bord de l'Administrateur</h1>
       <table>
