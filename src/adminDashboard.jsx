@@ -20,6 +20,7 @@ const AdminDashboard = () => {
     })
     .then(data => {
       setClients(data);
+      console.log(data)
     })
     .catch(error => console.error('Erreur lors de la récupération des clients:', error));
   }, []);
@@ -69,8 +70,12 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = () => {
-    // ... Votre logique de déconnexion ...
-    console.log("L'utilisateur c'est déconnecté")
+    // Supprimer le token du stockage local
+    localStorage.removeItem('token');
+    // Afficher un message dans la console
+    console.log("L'utilisateur s'est déconnecté");
+    // Rediriger vers la page de connexion
+    window.location.href = '/login';
   };
 
   return (
